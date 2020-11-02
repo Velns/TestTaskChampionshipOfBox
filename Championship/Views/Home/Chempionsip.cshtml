@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Page of chempionsip";
+}
+<table id="tbatles"></table>
+<div id="jpager"></div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#tbatles").jqGrid({
+                url: '@Url.Action("GetDataBattles")',   //запит даних до контролера
+                datatype: "json",
+                colNames: ['Date', 'Amount of rounds', 'First boxer (winner)', 'Second boxer'],
+                colModel: [
+                    { name: 'Date', index: 'Date',                      sortable: false, formatter: 'date', formatoptions: { newformat: 'd/m/Y' }, editable: true },
+                    { name: 'AmountOfRounds', index: 'AmountOfRounds',  sortable: false, editable: true},
+                    { name: 'Boxer1Winner', index: 'Boxer1Winner',      sortable: true, editable: true },
+                    { name: 'Boxer2', index: 'Boxer2',                  sortable: true, editable: true }
+                ],
+                rowNum: 10,             // к-сть стрічок при загрузці
+                rowList: [10, 20, 30],  // варіанти к-сті стрічок
+                pager: '#jpager',
+                loadonce:true,          // прогружати усі дані за 1 запит
+                sortname: 'Date',       // стовпець сортування
+                sortorder: "desc",      // порядок сортування
+                caption: "Battles table",
+                height: "auto"
+            });
+            $("#tbatles").jqGrid('navGrid', '#jpager', {
+
+                search: true,  //
+                refresh: true, //
+                view: true,    // кнопки
+                add: false,    //
+                del: false,    //
+                edit: false,   //
+                searchtext: "Search",
+                viewtext: "See details",
+                refreshtext: "Refresh",
+                viewtitle: "Selected entry"
+            }
+            );
+
+        });
+</script> 

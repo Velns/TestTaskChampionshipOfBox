@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Main page";
+}
+<table id="tchemp"></table>
+<div id="jpager"></div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#tchemp").jqGrid({
+                url: '@Url.Action("GetDataChempions")',         //запит даних до контролера
+                datatype: "json",
+                colNames: ['Name', 'Amount Of Battle', 'Ranking'],
+                colModel: [
+                    { name: 'Name', index: 'Name',                      },
+                    { name: 'AmountOfBattle', index: 'AmountOfBattle',  sortable: true},
+                    { name: 'Ranking', index: 'Ranking',                sortable: true  }
+                ],
+                rowNum: 10,             // к-сть стрічок при загрузці
+                rowList: [10, 20, 30],  // варіанти к-сті стрічок
+                pager: '#jpager',
+                loadonce:true,          // прогружати усі дані за 1 запит
+                sortname: 'Ranking',    // стовпець сортування
+                sortorder: "desc",      // порядок сортування
+                caption: "Ranking table",
+                height: "auto"
+            });
+            $("#tchemp").jqGrid('navGrid', '#jpager', {
+
+                search: true,
+                searchtext: "Search",
+                refreshtext: "Refresh",
+                refresh: true,  //
+                add: false,     //
+                del: false,     // кнопки
+                edit: false,    //
+                view: true,     //
+                viewtext: "See details",
+                viewtitle: "Selected entry"
+            }
+            );
+
+        });
+</script> 
